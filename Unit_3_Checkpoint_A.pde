@@ -41,5 +41,13 @@ void mouseReleased() {
     selectedColor = pink;
   }
 
+  if(dist(100,300,mouseX,mouseY) < 50){
+    selectedColor = red;
+  }
+
+  if(dist(100,500,mouseX,mouseY) < 50){
+    selectedColor = darkRed`;
+  }
+
 
 }
