@@ -5,8 +5,11 @@ color red = #FF2424;
 color darkRed = #9E0000;
 color black = #000000;
 color white = #FFFFFF;
-
+color grey = #6F6F6F;
 int toggle=1;
+
+float sliderX;
+float pinkShade;
 //variables for color selection
 color selectedColor;
 void setup() {
@@ -14,12 +17,17 @@ void setup() {
   strokeWeight(5);
   stroke(black);
   selectedColor = darkRed;
-
+  sliderX=500;
 }
 
 
 void draw() {
-  background(lightPink);
+  background(255,pinkShade,255);
+
+//slider
+  fill(255,pinkShade,255);
+  line(200,200,800,200);
+  circle(sliderX,200,50);
 
 
 //buttons
@@ -51,6 +59,8 @@ void draw() {
   rectTactile(50,650,650,750);
   fill(darkRed);
   rect(50,650,200,100);
+  
+  sliderTactile(200,175,800,225);
 }
 
 void tactile(int x, int y, int r) {
@@ -71,6 +81,14 @@ void rectTactile(int rX, int rY, int w, int h) {
 
 }
 
+void sliderTactile(int sX, int sY, int sW, int sH) {
+  if(mouseX >sX-25 && mouseX <  sW +25 && mouseY > sY -25 && mouseY < sH+25){
+     stroke(grey);
+  } else {
+    stroke(black);
+  }
+
+}
 void mouseReleased() {
   
   
@@ -96,6 +114,23 @@ void mouseReleased() {
   if(dist(900,700,mouseX,mouseY) < 50){
     selectedColor = darkRed;
   }
+  
+  controlSlider();
+  
+
+} 
+
+void mouseDragged() {
+  controlSlider();
+
+}
 
 
+
+void controlSlider() {
+    if(mouseX>200 && mouseX < 800 && mouseY >175 && mouseY <225) {
+    sliderX = mouseX;
+    }
+    
+    pinkShade = map(sliderX,200,800,0,255);
 }
