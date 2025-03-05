@@ -15,11 +15,14 @@ color grey = #6F6F6F;
 
 
 color selectedColor;
+
+float sliderX;
 void setup() {
   size(1500,1000);
   strokeWeight(5);
   stroke(black);
   selectedColor = lightPink;
+  sliderX = 175;
 }
 
 void draw() {
@@ -28,6 +31,12 @@ void draw() {
   fill(black);
   stroke(grey);
   rect(0,0,350,1000);
+  rect(350,0,1150,150);
+  fill(255);
+  textSize(60);
+  text("Microshift Saint", 725,95);
+  fill(0);
+  rect(350,850,1150,150);
   
   //buttons
   rectTactile(50,50,150,150);
@@ -61,6 +70,22 @@ void draw() {
   rectTactile(200,500,300,600);
   fill(darkerPurple);
   rect(200,500,100,100);
+  
+  rectTactile(50,650,150,750);
+  fill(white);
+  rect(50,650,100,100);
+  stroke(grey);
+
+//slider
+  fill(255);
+  line(50,825,300,825);
+  circle(sliderX,825,25);
+
+//indicator
+  noStroke();
+  fill(selectedColor);
+  circle(175,925,50);
+
 }
 
 
@@ -73,3 +98,44 @@ void rectTactile(int rX, int rY, int w, int h) {
   }
 
 }
+
+//color changer
+void mouseReleased() {
+  
+  
+  if(mouseX > 50 && mouseX < 150 && mouseY > 50 && mouseY <150) {
+    selectedColor = lighterPink;
+}
+
+  if(mouseX > 50 && mouseX < 150 && mouseY > 200 && mouseY <300) {
+    selectedColor = brightPink;
+}
+
+  if(mouseX > 50 && mouseX < 150 && mouseY > 350 && mouseY <450) {
+    selectedColor = magenta;
+}
+  if(mouseX > 50 && mouseX < 150 && mouseY > 500 && mouseY <600) {
+    selectedColor = darkPurple;
+}
+  if(mouseX > 50 && mouseX < 150 && mouseY > 650 && mouseY <750) {
+    selectedColor = white;
+}
+
+  if(mouseX > 200 && mouseX < 300 && mouseY > 50 && mouseY <150) {
+    selectedColor = lightPink;
+}
+
+  if(mouseX > 200 && mouseX < 300 && mouseY > 200 && mouseY <300) {
+    selectedColor = pink;
+}
+
+  if(mouseX > 200 && mouseX < 300 && mouseY > 350 && mouseY <450) {
+    selectedColor = purple;
+}
+
+  if(mouseX > 200 && mouseX < 300 && mouseY > 500 && mouseY <600) {
+    selectedColor =darkerPurple;
+}
+
+  
+} 
