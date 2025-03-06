@@ -17,17 +17,19 @@ color grey = #6F6F6F;
 color selectedColor;
 
 float sliderX;
+float penSize;
 void setup() {
+  background(255);
   size(1500,1000);
   strokeWeight(5);
   stroke(black);
   selectedColor = lightPink;
-  sliderX = 175;
+  sliderX = 50;
+  penSize =10;
 }
 
 void draw() {
   //bg and ui
-  background(255);
   fill(black);
   stroke(grey);
   rect(0,0,350,1000);
@@ -79,12 +81,12 @@ void draw() {
 //slider
   fill(255);
   line(50,825,300,825);
-  circle(sliderX,825,25);
+  circle(sliderX,825,50);
 
 //indicator
   noStroke();
   fill(selectedColor);
-  circle(175,925,50);
+  circle(175,925,penSize);
 
 }
 
@@ -136,6 +138,22 @@ void mouseReleased() {
   if(mouseX > 200 && mouseX < 300 && mouseY > 500 && mouseY <600) {
     selectedColor =darkerPurple;
 }
-
+  controlSlider();
   
 } 
+
+void mouseDragged() {
+  strokeWeight(penSize);
+  stroke(selectedColor);
+  line(pmouseX,pmouseY,mouseX,mouseY);
+  strokeWeight(5);
+  controlSlider();
+}
+
+void controlSlider() {
+    if(mouseX>50 && mouseX < 300 && mouseY >812.5 && mouseY <837.5) {
+    sliderX = mouseX;
+    }
+    
+    penSize = map(sliderX,50,300,10,100);
+}
