@@ -143,10 +143,12 @@ void mouseReleased() {
 } 
 
 void mouseDragged() {
-  strokeWeight(penSize);
-  stroke(selectedColor);
-  line(pmouseX,pmouseY,mouseX,mouseY);
-  strokeWeight(5);
+  if(mouseX > 350 && mouseY >150 && mouseY <850){
+    strokeWeight(penSize);
+    stroke(selectedColor);
+    line(pmouseX,pmouseY,mouseX,mouseY);
+    strokeWeight(5);
+  } 
   controlSlider();
 }
 
