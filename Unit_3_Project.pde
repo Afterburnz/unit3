@@ -1,3 +1,7 @@
+//Fix knife appearing briefly in color selector
+//Fix knife indicator alignment
+
+
 //palette of colors
 color lightPink = #f4d1ff;
 color pink = #e596ff;
@@ -16,8 +20,14 @@ color grey = #6F6F6F;
 
 color selectedColor;
 
+//other variables
 float sliderX;
 float penSize;
+
+PImage eraser;
+PImage knife;
+
+boolean knifeOn;
 void setup() {
   background(255);
   size(1500,1000);
@@ -26,6 +36,10 @@ void setup() {
   selectedColor = lightPink;
   sliderX = 50;
   penSize =10;
+  
+  eraser = loadImage("eraser.png");
+  knife = loadImage("knife.png");
+  knifeOn = false;
 }
 
 void draw() {
@@ -34,11 +48,15 @@ void draw() {
   stroke(grey);
   rect(0,0,350,1000);
   rect(350,0,1150,150);
+  rect(350,850,1150,150);
+  
+  //text
   fill(255);
   textSize(60);
   text("Microshift Saint", 725,95);
   fill(0);
-  rect(350,850,1150,150);
+
+
   
   //buttons
   rectTactile(50,50,150,150);
@@ -77,17 +95,29 @@ void draw() {
   fill(white);
   rect(50,650,100,100);
   stroke(grey);
+  
+  rectTactile(200,650,300,750);
+  fill(white);
+  rect(200,650,100,100);
+  stroke(grey);
 
+//loading in images
+  image(eraser,50,650,100,100);
+  image(knife,200,650,100,100);
 //slider
   fill(255);
   line(50,825,300,825);
   circle(sliderX,825,50);
 
 //indicator
-  noStroke();
-  fill(selectedColor);
-  circle(175,925,penSize);
-
+  if (knifeOn ==false){
+    noStroke();
+    fill(selectedColor);
+    circle(175,925,penSize);
+  } else {
+      fill(0);
+      image(knife,150,900,penSize,penSize);
+  }
 }
 
 
@@ -101,59 +131,94 @@ void rectTactile(int rX, int rY, int w, int h) {
 
 }
 
-//color changer
+
 void mouseReleased() {
   
-  
+  //color changer
   if(mouseX > 50 && mouseX < 150 && mouseY > 50 && mouseY <150) {
     selectedColor = lighterPink;
+    knifeOn=false;
 }
 
   if(mouseX > 50 && mouseX < 150 && mouseY > 200 && mouseY <300) {
     selectedColor = brightPink;
+    knifeOn=false;
 }
 
   if(mouseX > 50 && mouseX < 150 && mouseY > 350 && mouseY <450) {
     selectedColor = magenta;
+    knifeOn=false;
 }
   if(mouseX > 50 && mouseX < 150 && mouseY > 500 && mouseY <600) {
     selectedColor = darkPurple;
+    knifeOn=false;
 }
   if(mouseX > 50 && mouseX < 150 && mouseY > 650 && mouseY <750) {
     selectedColor = white;
+    knifeOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 50 && mouseY <150) {
     selectedColor = lightPink;
+    knifeOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 200 && mouseY <300) {
     selectedColor = pink;
+    knifeOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 350 && mouseY <450) {
     selectedColor = purple;
+    knifeOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 500 && mouseY <600) {
     selectedColor =darkerPurple;
+    knifeOn=false;
 }
+//knife button
+  if(mouseX > 200 && mouseX < 300 && mouseY > 650 && mouseY <750) {
+    knifeOn = !knifeOn;
+}
+
+  if (knifeOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
+    //drawing dots
+       strokeWeight(penSize);
+       stroke(selectedColor);
+       line(pmouseX,pmouseY,mouseX,mouseY);
+       strokeWeight(5);
+   } else {
+     
+       image(knife,mouseX,mouseY,penSize,penSize);
+   }
+  
+  //slider
   controlSlider();
   
 } 
 
 void mouseDragged() {
-  if(mouseX > 350 && mouseY >150 && mouseY <850){
+  if (knifeOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
+    //squiggly lines
     strokeWeight(penSize);
     stroke(selectedColor);
     line(pmouseX,pmouseY,mouseX,mouseY);
     strokeWeight(5);
-  } 
+    
+//slider    
+  } else {
+    //knife drawing
+      if(mouseX > 350 && mouseY >150 && mouseY <850){
+        image(knife,mouseX,mouseY,penSize,penSize);
+      }
+  }
+
   controlSlider();
 }
 
 void controlSlider() {
-    if(mouseX>50 && mouseX < 300 && mouseY >812.5 && mouseY <837.5) {
+    if(mouseX>50 && mouseX < 300 && mouseY >800 && mouseY <850) {
     sliderX = mouseX;
     }
     
