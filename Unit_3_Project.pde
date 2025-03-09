@@ -25,7 +25,7 @@ float sliderX;
 float penSize;
 
 PImage eraser;
-PImage knife;
+PImage apple;
 
 boolean knifeOn;
 void setup() {
@@ -38,7 +38,7 @@ void setup() {
   penSize =10;
   
   eraser = loadImage("eraser.png");
-  knife = loadImage("knife.png");
+  apple = loadImage("apple.png");
   knifeOn = false;
 }
 
@@ -103,7 +103,7 @@ void draw() {
 
 //loading in images
   image(eraser,50,650,100,100);
-  image(knife,200,650,100,100);
+  image(apple,200,650,100,100);
 //slider
   fill(255);
   line(50,825,300,825);
@@ -116,7 +116,7 @@ void draw() {
     circle(175,925,penSize);
   } else {
       fill(0);
-      image(knife,150,900,penSize,penSize);
+      image(apple,150,900,penSize,penSize);
   }
 }
 
@@ -190,7 +190,7 @@ void mouseReleased() {
        strokeWeight(5);
    } else {
      
-       image(knife,mouseX,mouseY,penSize,penSize);
+       image(apple,mouseX,mouseY,penSize,penSize);
    }
   
   //slider
@@ -210,7 +210,7 @@ void mouseDragged() {
   } else {
     //knife drawing
       if(mouseX > 350 && mouseY >150 && mouseY <850){
-        image(knife,mouseX,mouseY,penSize,penSize);
+        image(apple,mouseX,mouseY,penSize,penSize);
       }
   }
 
