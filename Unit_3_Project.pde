@@ -148,7 +148,7 @@ void draw() {
     circle(175,925,penSize);
   } else {
       fill(0);
-      image(apple,150-imgSize/2,900-imgSize/2,imgSize,imgSize);
+      image(apple,175-imgSize/2,925-imgSize/2,imgSize,imgSize);
   }
 }
 
@@ -226,7 +226,7 @@ void mouseReleased() {
     selectedColor =darkerPurple;
     appleOn=false;
 }
-//knife button
+//apple button
   if(dist(250,700,mouseX,mouseY) < 50) {
     appleOn = !appleOn;
 }
@@ -256,7 +256,7 @@ void mouseReleased() {
        strokeWeight(5);
    } else {
      if(mouseX > 350 && mouseY >150 && mouseY <850){
-       image(apple,mouseX,mouseY,imgSize,imgSize);
+       image(apple,mouseX-imgSize/2,mouseY-imgSize/2,imgSize,imgSize);
      }
    }
   
@@ -296,9 +296,9 @@ void mouseDragged() {
     
 //slider    
   } else {
-    //knife drawing
+    //apple drawing
       if(mouseX > 350 && mouseY >150 && mouseY <850){
-        image(apple,mouseX,mouseY,imgSize,imgSize);
+        image(apple,mouseX-imgSize/2,mouseY-imgSize/2,imgSize,imgSize);
       }
   }
 
