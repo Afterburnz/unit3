@@ -148,7 +148,7 @@ void draw() {
     circle(175,925,penSize);
   } else {
       fill(0);
-      image(apple,150,900,imgSize,imgSize);
+      image(apple,150-imgSize/2,900-imgSize/2,imgSize,imgSize);
   }
 }
 
