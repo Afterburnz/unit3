@@ -1,6 +1,5 @@
-//Fix knife appearing briefly in color selector
-//Fix knife indicator alignment
-
+//Fix apple indicator alignment
+//Fix load image
 
 //palette of colors
 color lightPink = #f4d1ff;
@@ -23,11 +22,12 @@ color selectedColor;
 //other variables
 float sliderX;
 float penSize;
+float imgSize;
 
 PImage eraser;
 PImage apple;
 
-boolean knifeOn;
+boolean appleOn;
 void setup() {
   background(255);
   size(1500,1000);
@@ -36,10 +36,11 @@ void setup() {
   selectedColor = lightPink;
   sliderX = 50;
   penSize =10;
+  imgSize = 20;
   
   eraser = loadImage("eraser.png");
   apple = loadImage("apple.png");
-  knifeOn = false;
+  appleOn = false;
 }
 
 void draw() {
@@ -91,32 +92,63 @@ void draw() {
   fill(darkerPurple);
   rect(200,500,100,100);
   
-  rectTactile(50,650,150,750);
+  //new button
+  rectTactile(400,875,650,975);
   fill(white);
-  rect(50,650,100,100);
+  rect(400,875,250,100);
+  fill(black);
+  text("N E W", 450,945);
+  
+  //save button
+  rectTactile(800,875,1050,975);
+  fill(white);
+  rect(800,875,250,100);
+  fill(black);
+  text("S A V E", 840,945);
+  
+  //load button
+  rectTactile(1200,875,1450,975);
+  fill(white);
+  rect(1200,875,250,100);
+  fill(black);
+  text("L O A D", 1240,945);
+  
+  
+  
+  
+  
+  //circle buttons
+  tactile(100,700,50);
+  fill(white);
+  circle(100,700,100);
   stroke(grey);
   
-  rectTactile(200,650,300,750);
+  tactile(250,700,50);
   fill(white);
-  rect(200,650,100,100);
+  circle(250,700,100);
   stroke(grey);
+  
+  
+  
+
 
 //loading in images
-  image(eraser,50,650,100,100);
+  image(eraser,65,665,70,70);
   image(apple,200,650,100,100);
 //slider
-  fill(255);
+  sliderTactile(50,825,300,825);
+  fill(grey);
   line(50,825,300,825);
   circle(sliderX,825,50);
 
 //indicator
-  if (knifeOn ==false){
+  if (appleOn ==false){
     noStroke();
     fill(selectedColor);
     circle(175,925,penSize);
   } else {
       fill(0);
-      image(apple,150,900,penSize,penSize);
+      image(apple,150,900,imgSize,imgSize);
   }
 }
 
@@ -131,66 +163,101 @@ void rectTactile(int rX, int rY, int w, int h) {
 
 }
 
+void tactile(int x, int y, int r) {
+  if(dist(x,y,mouseX,mouseY) < r){
+    stroke(neonPink);
+  } else {    
+    stroke(grey);
+    
+    }
+} 
+
+void sliderTactile(int sX, int sY, int sW, int sH) {
+  if(mouseX >sX-25 && mouseX <  sW +25 && mouseY > sY -25 && mouseY < sH+25){
+     stroke(neonPink);
+  } else {
+    stroke(white);
+  }
+}
 
 void mouseReleased() {
   
   //color changer
   if(mouseX > 50 && mouseX < 150 && mouseY > 50 && mouseY <150) {
     selectedColor = lighterPink;
-    knifeOn=false;
+    appleOn=false;
 }
 
   if(mouseX > 50 && mouseX < 150 && mouseY > 200 && mouseY <300) {
     selectedColor = brightPink;
-    knifeOn=false;
+    appleOn=false;
 }
 
   if(mouseX > 50 && mouseX < 150 && mouseY > 350 && mouseY <450) {
     selectedColor = magenta;
-    knifeOn=false;
+    appleOn=false;
 }
   if(mouseX > 50 && mouseX < 150 && mouseY > 500 && mouseY <600) {
     selectedColor = darkPurple;
-    knifeOn=false;
+    appleOn=false;
 }
-  if(mouseX > 50 && mouseX < 150 && mouseY > 650 && mouseY <750) {
+  if(dist(100,700,mouseX,mouseY) < 50){
     selectedColor = white;
-    knifeOn=false;
+    appleOn=false;
+
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 50 && mouseY <150) {
     selectedColor = lightPink;
-    knifeOn=false;
+    appleOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 200 && mouseY <300) {
     selectedColor = pink;
-    knifeOn=false;
+    appleOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 350 && mouseY <450) {
     selectedColor = purple;
-    knifeOn=false;
+    appleOn=false;
 }
 
   if(mouseX > 200 && mouseX < 300 && mouseY > 500 && mouseY <600) {
     selectedColor =darkerPurple;
-    knifeOn=false;
+    appleOn=false;
 }
 //knife button
-  if(mouseX > 200 && mouseX < 300 && mouseY > 650 && mouseY <750) {
-    knifeOn = !knifeOn;
+  if(dist(250,700,mouseX,mouseY) < 50) {
+    appleOn = !appleOn;
 }
 
-  if (knifeOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
+//new button
+  if(mouseX>400 && mouseX <650 && mouseY > 875 && mouseY<975) {
+    stroke(grey);
+    fill(white);
+    rect(350,150,1150,700);  
+  }
+  
+//save button
+  if (mouseX>800 && mouseX <1050 && mouseY >875 && mouseX<975){
+    selectOutput("Make a name for your new image file", "saveImage");
+  }
+
+//laod button
+  if (mouseX>1200 && mouseX <1450 && mouseY >875 && mouseX<975){
+    selectInput("Pick an image to load", "openImage");
+  }
+
+  if (appleOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
     //drawing dots
        strokeWeight(penSize);
        stroke(selectedColor);
        line(pmouseX,pmouseY,mouseX,mouseY);
        strokeWeight(5);
    } else {
-     
-       image(apple,mouseX,mouseY,penSize,penSize);
+     if(mouseX > 350 && mouseY >150 && mouseY <850){
+       image(apple,mouseX,mouseY,imgSize,imgSize);
+     }
    }
   
   //slider
@@ -198,8 +265,29 @@ void mouseReleased() {
   
 } 
 
+void saveImage(File f) {
+  if(f != null) {
+    PImage canvas = get(350,150,1150,700);
+    canvas.save(f.getAbsolutePath());
+  
+  }
+
+}
+
+void openImage(File f) {
+  if(f != null){
+    //KLUDGE
+    int n = 0;
+    while(n<100) {
+      PImage pic = loadImage(f.getPath());
+      image(pic,350,150);
+      n=n+1;
+    }
+  }
+}
+
 void mouseDragged() {
-  if (knifeOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
+  if (appleOn == false && mouseX > 350 && mouseY >150 && mouseY <850){
     //squiggly lines
     strokeWeight(penSize);
     stroke(selectedColor);
@@ -210,7 +298,7 @@ void mouseDragged() {
   } else {
     //knife drawing
       if(mouseX > 350 && mouseY >150 && mouseY <850){
-        image(apple,mouseX,mouseY,penSize,penSize);
+        image(apple,mouseX,mouseY,imgSize,imgSize);
       }
   }
 
@@ -222,5 +310,6 @@ void controlSlider() {
     sliderX = mouseX;
     }
     
-    penSize = map(sliderX,50,300,10,100);
+    penSize = map(sliderX,50,300,10,80);
+    imgSize = map(sliderX,50,300,20,100);    
 }
