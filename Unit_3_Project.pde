@@ -1,6 +1,3 @@
-//Fix apple indicator alignment
-//Fix load image
-
 //palette of colors
 color lightPink = #f4d1ff;
 color pink = #e596ff;
@@ -239,12 +236,12 @@ void mouseReleased() {
   }
   
 //save button
-  if (mouseX>800 && mouseX <1050 && mouseY >875 && mouseX<975){
+  if (mouseX>800 && mouseX <1050 && mouseY >875 && mouseY<975){
     selectOutput("Make a name for your new image file", "saveImage");
   }
 
 //laod button
-  if (mouseX>1200 && mouseX <1450 && mouseY >875 && mouseX<975){
+  if (mouseX>1200 && mouseX <1450 && mouseY >875 && mouseY<975){
     selectInput("Pick an image to load", "openImage");
   }
 
